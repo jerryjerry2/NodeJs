@@ -1,10 +1,26 @@
-//npm init -y for create package.json
-//npm i lodash == command install npm package
-//npm i bootstrap == command install npm package 
+const { readFile } = require('fs');
 
-const _ = require('lodash');
+const getText = (path ) => {
+    return new Promise((resolve, reject) => {
+        readFile(path,'utf8',(err,data) => {
+            if(err){
+                reject(err)
+            }else{
+                resolve(data)
+            }
+        })
+    })
+}
 
-const items = [1,[2, [3, [4]]]];
-const newItems = _.flattenDeep(items);
+const start = async () => {
+    try {
+        const first = await getText('./content/first.txt')
+        const second = await getText('./content/second.txt')
+        console.log(first, second);
+        
+    } catch (error) {
+        console.log(error);
+    }
+}
 
-console.log(newItems);
+start();
