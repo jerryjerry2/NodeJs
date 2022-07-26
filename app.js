@@ -1,26 +1,18 @@
-const { readFile } = require('fs');
+const express = require('express');
+const app = express();
+// req => middleware => res
 
-const getText = (path ) => {
-    return new Promise((resolve, reject) => {
-        readFile(path,'utf8',(err,data) => {
-            if(err){
-                reject(err)
-            }else{
-                resolve(data)
-            }
-        })
-    })
-}
+app.get('/', (req, res) => {
+    res.send('Homepage');
+})
 
-const start = async () => {
-    try {
-        const first = await getText('./content/first.txt')
-        const second = await getText('./content/second.txt')
-        console.log(first, second);
-        
-    } catch (error) {
-        console.log(error);
-    }
-}
+app.get('/about', (req, res) => {
+    res.send('About');
+})
 
-start();
+
+
+
+app.listen(5000, () => {
+    console.log('Server running on port 5000');
+})
